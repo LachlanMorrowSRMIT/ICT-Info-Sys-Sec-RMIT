@@ -1,5 +1,0 @@
-System Time: 2023-09-08 13:45:55.662793
-Student 1 (Manav) Number: s3949664 
-Student 2 (Lachlan) Number: s3942121
-
-Current User: lachl
