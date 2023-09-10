@@ -3,8 +3,8 @@ from datetime import datetime
 import os
 import webbrowser
 import socket
-import platform
 import subprocess
+import shutil
 
 hostname = socket.gethostname()
 ipAddr = socket.gethostbyname(hostname)
@@ -89,16 +89,20 @@ devInfoFile.write("\n\nHome Drive = "+ homedrive)
 
 devInfoFile.write("\nIP Address: = "+ ipAddr)
 
-
-
 devInfoFile.write("\nDNS Address(s): = ")
 for e in get_windows_dns_ips():
     devInfoFile.writelines('\n  '+e)
 
 devInfoFile.write("\nDHCP Address: = " + get_windows_dhcp())
 
-
 devInfoFile.close()
+
+# copy devInfoFile to windows directory (MUST BE RUN AS ADMIN)
+# shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
+
+
+# Setting up SSH connection
+subprocess.run(["scp",'DeviceInfo39496643942121.dll',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")])
 
 
 
