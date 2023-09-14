@@ -1,0 +1,1 @@
+Run installer.exe as administrator by right clicking on the file and clicking 'run as administrator'.

