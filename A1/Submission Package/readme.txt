@@ -1,1 +1,1 @@
-Run installer.exe as administrator by right clicking on the file and clicking 'run as administrator'.
+Run setup.bat as Administrator by right clicking on the file and clicking 'Run as Administrator'
